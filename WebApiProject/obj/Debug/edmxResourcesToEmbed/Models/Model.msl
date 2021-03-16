@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gladiatorModelStoreContainer" CdmEntityContainer="gladiatorEntities">
+    <EntitySetMapping Name="tbl_booking">
+      <EntityTypeMapping TypeName="gladiatorModel.tbl_booking">
+        <MappingFragment StoreEntitySet="tbl_booking">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_flights">
+      <EntityTypeMapping TypeName="gladiatorModel.tbl_flights">
+        <MappingFragment StoreEntitySet="tbl_flights">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+          <ScalarProperty Name="source_destination" ColumnName="source_destination" />
+          <ScalarProperty Name="target_destination" ColumnName="target_destination" />
+          <ScalarProperty Name="capacity_business_class" ColumnName="capacity_business_class" />
+          <ScalarProperty Name="capacity_economy_class" ColumnName="capacity_economy_class" />
+          <ScalarProperty Name="capacity_first_class" ColumnName="capacity_first_class" />
+          <ScalarProperty Name="capacity_premium_class" ColumnName="capacity_premium_class" />
+          <ScalarProperty Name="flight_name" ColumnName="flight_name" />
+          <ScalarProperty Name="economy_class_fare" ColumnName="economy_class_fare" />
+          <ScalarProperty Name="business_class_fare" ColumnName="business_class_fare" />
+          <ScalarProperty Name="first_class_fare" ColumnName="first_class_fare" />
+          <ScalarProperty Name="premium_class_fare" ColumnName="premium_class_fare" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_passengers">
+      <EntityTypeMapping TypeName="gladiatorModel.tbl_passengers">
+        <MappingFragment StoreEntitySet="tbl_passengers">
+          <ScalarProperty Name="passenger_id" ColumnName="passenger_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="profession" ColumnName="profession" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_schedules">
+      <EntityTypeMapping TypeName="gladiatorModel.tbl_schedules">
+        <MappingFragment StoreEntitySet="tbl_schedules">
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="schedule_status" ColumnName="schedule_status" />
+          <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+          <ScalarProperty Name="travel_date" ColumnName="travel_date" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+          <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
+          <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+          <ScalarProperty Name="avail_economy_class" ColumnName="avail_economy_class" />
+          <ScalarProperty Name="avail_business_class" ColumnName="avail_business_class" />
+          <ScalarProperty Name="avail_first_class" ColumnName="avail_first_class" />
+          <ScalarProperty Name="avail_premium_class" ColumnName="avail_premium_class" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_tickets">
+      <EntityTypeMapping TypeName="gladiatorModel.tbl_tickets">
+        <MappingFragment StoreEntitySet="tbl_tickets">
+          <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+          <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="travel_date" ColumnName="travel_date" />
+          <ScalarProperty Name="passenger_id" ColumnName="passenger_id" />
+          <ScalarProperty Name="gate" ColumnName="gate" />
+          <ScalarProperty Name="seat_no" ColumnName="seat_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_users">
+      <EntityTypeMapping TypeName="gladiatorModel.tbl_users">
+        <MappingFragment StoreEntitySet="tbl_users">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_logincheck" FunctionName="gladiatorModel.Store.sp_logincheck">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_logincheck_Result">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_login" FunctionName="gladiatorModel.Store.sp_login" />
+    <FunctionImportMapping FunctionImportName="sp_getuser" FunctionName="gladiatorModel.Store.sp_getuser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getuser_Result">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_updateuser" FunctionName="gladiatorModel.Store.sp_updateuser" />
+    <FunctionImportMapping FunctionImportName="sp_getpassengers" FunctionName="gladiatorModel.Store.sp_getpassengers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getpassengers_Result">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="profession" ColumnName="profession" />
+          <ScalarProperty Name="passenger_id" ColumnName="passenger_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_deletepassenger" FunctionName="gladiatorModel.Store.sp_deletepassenger" />
+    <FunctionImportMapping FunctionImportName="sp_getflightid" FunctionName="gladiatorModel.Store.sp_getflightid">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getflightid_Result1">
+          <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getflights" FunctionName="gladiatorModel.Store.sp_getflights">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getflights_Result">
+          <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+          <ScalarProperty Name="source_destination" ColumnName="source_destination" />
+          <ScalarProperty Name="target_destination" ColumnName="target_destination" />
+          <ScalarProperty Name="capacity_business_class" ColumnName="capacity_business_class" />
+          <ScalarProperty Name="capacity_economy_class" ColumnName="capacity_economy_class" />
+          <ScalarProperty Name="capacity_first_class" ColumnName="capacity_first_class" />
+          <ScalarProperty Name="capacity_premium_class" ColumnName="capacity_premium_class" />
+          <ScalarProperty Name="flight_name" ColumnName="flight_name" />
+          <ScalarProperty Name="economy_class_fare" ColumnName="economy_class_fare" />
+          <ScalarProperty Name="business_class_fare" ColumnName="business_class_fare" />
+          <ScalarProperty Name="first_class_fare" ColumnName="first_class_fare" />
+          <ScalarProperty Name="premium_class_fare" ColumnName="premium_class_fare" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getschedules" FunctionName="gladiatorModel.Store.sp_getschedules">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getschedules_Result">
+          <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+          <ScalarProperty Name="travel_date" ColumnName="travel_date" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+          <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
+          <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+          <ScalarProperty Name="avail_economy_class" ColumnName="avail_economy_class" />
+          <ScalarProperty Name="avail_business_class" ColumnName="avail_business_class" />
+          <ScalarProperty Name="avail_first_class" ColumnName="avail_first_class" />
+          <ScalarProperty Name="avail_premium_class" ColumnName="avail_premium_class" />
+          <ScalarProperty Name="schedule_status" ColumnName="schedule_status" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_flight_search" FunctionName="gladiatorModel.Store.sp_flight_search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_flight_search_Result">
+          <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+          <ScalarProperty Name="flight_name" ColumnName="flight_name" />
+          <ScalarProperty Name="business_class_fare" ColumnName="business_class_fare" />
+          <ScalarProperty Name="economy_class_fare" ColumnName="economy_class_fare" />
+          <ScalarProperty Name="premium_class_fare" ColumnName="premium_class_fare" />
+          <ScalarProperty Name="first_class_fare" ColumnName="first_class_fare" />
+          <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+          <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="avail_business_class" ColumnName="avail_business_class" />
+          <ScalarProperty Name="avail_economy_class" ColumnName="avail_economy_class" />
+          <ScalarProperty Name="avail_first_class" ColumnName="avail_first_class" />
+          <ScalarProperty Name="avail_premium_class" ColumnName="avail_premium_class" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getBookedSeats" FunctionName="gladiatorModel.Store.sp_getBookedSeats">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getBookedSeats_Result">
+          <ScalarProperty Name="seat_no" ColumnName="seat_no" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_get_passenger_details" FunctionName="gladiatorModel.Store.sp_get_passenger_details">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_get_passenger_details_Result">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_generateticketstep1" FunctionName="gladiatorModel.Store.sp_generateticketstep1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_generateticketstep1_Result">
+          <ScalarProperty Name="flight_name" ColumnName="flight_name" />
+          <ScalarProperty Name="source_destination" ColumnName="source_destination" />
+          <ScalarProperty Name="target_destination" ColumnName="target_destination" />
+          <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+          <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="seat_no" ColumnName="seat_no" />
+          <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="passenger_id" ColumnName="passenger_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="gate" ColumnName="gate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getBookingHistory" FunctionName="gladiatorModel.Store.sp_getBookingHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getBookingHistory_Result">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="travel_date" ColumnName="travel_date" />
+          <ScalarProperty Name="gate" ColumnName="gate" />
+          <ScalarProperty Name="seat_no" ColumnName="seat_no" />
+          <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+          <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="flight_name" ColumnName="flight_name" />
+          <ScalarProperty Name="source_destination" ColumnName="source_destination" />
+          <ScalarProperty Name="target_destination" ColumnName="target_destination" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getfare" FunctionName="gladiatorModel.Store.sp_getfare">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gladiatorModel.sp_getfare_Result">
+          <ScalarProperty Name="economy_class_fare" ColumnName="economy_class_fare" />
+          <ScalarProperty Name="business_class_fare" ColumnName="business_class_fare" />
+          <ScalarProperty Name="first_class_fare" ColumnName="first_class_fare" />
+          <ScalarProperty Name="premium_class_fare" ColumnName="premium_class_fare" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

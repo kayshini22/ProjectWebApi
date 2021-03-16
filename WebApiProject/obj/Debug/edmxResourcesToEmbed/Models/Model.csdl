@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gladiatorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_booking">
+    <Key>
+      <PropertyRef Name="booking_id" />
+    </Key>
+    <Property Name="booking_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cost" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="schedule_id" Type="Int32" />
+    <NavigationProperty Name="tbl_tickets" Relationship="Self.fk_booking_id" FromRole="tbl_booking" ToRole="tbl_tickets" />
+    <NavigationProperty Name="tbl_schedules" Relationship="Self.fk_schedule_id" FromRole="tbl_booking" ToRole="tbl_schedules" />
+    <NavigationProperty Name="tbl_users" Relationship="Self.fk_username" FromRole="tbl_booking" ToRole="tbl_users" />
+    <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_flights">
+    <Key>
+      <PropertyRef Name="flight_id" />
+    </Key>
+    <Property Name="flight_id" Type="Int32" Nullable="false" />
+    <Property Name="source_destination" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="target_destination" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="capacity_business_class" Type="Int32" />
+    <Property Name="capacity_economy_class" Type="Int32" />
+    <Property Name="capacity_first_class" Type="Int32" />
+    <Property Name="capacity_premium_class" Type="Int32" />
+    <Property Name="flight_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="economy_class_fare" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="business_class_fare" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="first_class_fare" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="premium_class_fare" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="tbl_schedules" Relationship="Self.fk_flight_id" FromRole="tbl_flights" ToRole="tbl_schedules" />
+    <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_passengers">
+    <Key>
+      <PropertyRef Name="passenger_id" />
+    </Key>
+    <Property Name="passenger_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="age" Type="Int32" />
+    <Property Name="profession" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_tickets" Relationship="Self.fk_passenger_id_ticket" FromRole="tbl_passengers" ToRole="tbl_tickets" />
+    <NavigationProperty Name="tbl_users" Relationship="Self.fk_username_passenger" FromRole="tbl_passengers" ToRole="tbl_users" />
+  </EntityType>
+  <EntityType Name="tbl_schedules">
+    <Key>
+      <PropertyRef Name="schedule_id" />
+    </Key>
+    <Property Name="flight_id" Type="Int32" Nullable="false" />
+    <Property Name="travel_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="departure_time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="arrival_time" Type="Time" Precision="7" />
+    <Property Name="schedule_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="avail_economy_class" Type="Int32" />
+    <Property Name="avail_business_class" Type="Int32" />
+    <Property Name="avail_first_class" Type="Int32" />
+    <Property Name="avail_premium_class" Type="Int32" />
+    <NavigationProperty Name="tbl_booking" Relationship="Self.fk_schedule_id" FromRole="tbl_schedules" ToRole="tbl_booking" />
+    <NavigationProperty Name="tbl_flights" Relationship="Self.fk_flight_id" FromRole="tbl_schedules" ToRole="tbl_flights" />
+    <Property Name="schedule_status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="duration" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_tickets" Relationship="gladiatorModel.fk_schedule_id_tickets_table" FromRole="tbl_schedules" ToRole="tbl_tickets" />
+  </EntityType>
+  <EntityType Name="tbl_tickets">
+    <Key>
+      <PropertyRef Name="ticket_id" />
+    </Key>
+    <Property Name="ticket_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="booking_id" Type="Int32" />
+    <Property Name="travel_date" Type="DateTime" Precision="0" />
+    <Property Name="passenger_id" Type="Int32" />
+    <Property Name="gate" Type="Int32" />
+    <Property Name="seat_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_booking" Relationship="Self.fk_booking_id" FromRole="tbl_tickets" ToRole="tbl_booking" />
+    <NavigationProperty Name="tbl_passengers" Relationship="Self.fk_passenger_id_ticket" FromRole="tbl_tickets" ToRole="tbl_passengers" />
+    <Property Name="schedule_id" Type="Int32" />
+    <NavigationProperty Name="tbl_schedules" Relationship="gladiatorModel.fk_schedule_id_tickets_table" FromRole="tbl_tickets" ToRole="tbl_schedules" />
+  </EntityType>
+  <EntityType Name="tbl_users">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="title" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dob" Type="DateTime" Precision="0" />
+    <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_booking" Relationship="Self.fk_username" FromRole="tbl_users" ToRole="tbl_booking" />
+    <NavigationProperty Name="tbl_passengers" Relationship="Self.fk_username_passenger" FromRole="tbl_users" ToRole="tbl_passengers" />
+  </EntityType>
+  <Association Name="fk_booking_id">
+    <End Role="tbl_booking" Type="Self.tbl_booking" Multiplicity="0..1" />
+    <End Role="tbl_tickets" Type="Self.tbl_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_booking">
+        <PropertyRef Name="booking_id" />
+      </Principal>
+      <Dependent Role="tbl_tickets">
+        <PropertyRef Name="booking_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedule_id">
+    <End Role="tbl_schedules" Type="Self.tbl_schedules" Multiplicity="0..1" />
+    <End Role="tbl_booking" Type="Self.tbl_booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_schedules">
+        <PropertyRef Name="schedule_id" />
+      </Principal>
+      <Dependent Role="tbl_booking">
+        <PropertyRef Name="schedule_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_username">
+    <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="0..1" />
+    <End Role="tbl_booking" Type="Self.tbl_booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="tbl_booking">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_flight_id">
+    <End Role="tbl_flights" Type="Self.tbl_flights" Multiplicity="1" />
+    <End Role="tbl_schedules" Type="Self.tbl_schedules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_flights">
+        <PropertyRef Name="flight_id" />
+      </Principal>
+      <Dependent Role="tbl_schedules">
+        <PropertyRef Name="flight_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_passenger_id_ticket">
+    <End Role="tbl_passengers" Type="Self.tbl_passengers" Multiplicity="0..1" />
+    <End Role="tbl_tickets" Type="Self.tbl_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_passengers">
+        <PropertyRef Name="passenger_id" />
+      </Principal>
+      <Dependent Role="tbl_tickets">
+        <PropertyRef Name="passenger_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_username_passenger">
+    <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="0..1" />
+    <End Role="tbl_passengers" Type="Self.tbl_passengers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="tbl_passengers">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="gladiatorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_booking" EntityType="Self.tbl_booking" />
+    <EntitySet Name="tbl_flights" EntityType="Self.tbl_flights" />
+    <EntitySet Name="tbl_passengers" EntityType="Self.tbl_passengers" />
+    <EntitySet Name="tbl_schedules" EntityType="Self.tbl_schedules" />
+    <EntitySet Name="tbl_tickets" EntityType="Self.tbl_tickets" />
+    <EntitySet Name="tbl_users" EntityType="Self.tbl_users" />
+    <AssociationSet Name="fk_booking_id" Association="Self.fk_booking_id">
+      <End Role="tbl_booking" EntitySet="tbl_booking" />
+      <End Role="tbl_tickets" EntitySet="tbl_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedule_id" Association="Self.fk_schedule_id">
+      <End Role="tbl_schedules" EntitySet="tbl_schedules" />
+      <End Role="tbl_booking" EntitySet="tbl_booking" />
+    </AssociationSet>
+    <AssociationSet Name="fk_username" Association="Self.fk_username">
+      <End Role="tbl_users" EntitySet="tbl_users" />
+      <End Role="tbl_booking" EntitySet="tbl_booking" />
+    </AssociationSet>
+    <AssociationSet Name="fk_flight_id" Association="Self.fk_flight_id">
+      <End Role="tbl_flights" EntitySet="tbl_flights" />
+      <End Role="tbl_schedules" EntitySet="tbl_schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_passenger_id_ticket" Association="Self.fk_passenger_id_ticket">
+      <End Role="tbl_passengers" EntitySet="tbl_passengers" />
+      <End Role="tbl_tickets" EntitySet="tbl_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk_username_passenger" Association="Self.fk_username_passenger">
+      <End Role="tbl_users" EntitySet="tbl_users" />
+      <End Role="tbl_passengers" EntitySet="tbl_passengers" />
+    </AssociationSet>
+    <FunctionImport Name="sp_logincheck" ReturnType="Collection(gladiatorModel.sp_logincheck_Result)">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_login" ReturnType="Collection(String)">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getuser" ReturnType="Collection(gladiatorModel.sp_getuser_Result)">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_updateuser">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="firstname" Mode="In" Type="String" />
+      <Parameter Name="lastname" Mode="In" Type="String" />
+      <Parameter Name="dob" Mode="In" Type="DateTime" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getpassengers" ReturnType="Collection(gladiatorModel.sp_getpassengers_Result)">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_deletepassenger">
+      <Parameter Name="passenger_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getflightid" ReturnType="Collection(gladiatorModel.sp_getflightid_Result1)" />
+    <FunctionImport Name="sp_getflights" ReturnType="Collection(gladiatorModel.sp_getflights_Result)" />
+    <FunctionImport Name="sp_getschedules" ReturnType="Collection(gladiatorModel.sp_getschedules_Result)" />
+    <FunctionImport Name="sp_flight_search" ReturnType="Collection(gladiatorModel.sp_flight_search_Result)">
+      <Parameter Name="traveldate" Mode="In" Type="DateTime" />
+      <Parameter Name="src_dest" Mode="In" Type="String" />
+      <Parameter Name="tar_dest" Mode="In" Type="String" />
+      <Parameter Name="traveller" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <AssociationSet Name="fk_schedule_id_tickets_table" Association="gladiatorModel.fk_schedule_id_tickets_table">
+      <End Role="tbl_schedules" EntitySet="tbl_schedules" />
+      <End Role="tbl_tickets" EntitySet="tbl_tickets" />
+    </AssociationSet>
+    <FunctionImport Name="sp_getBookedSeats" ReturnType="Collection(gladiatorModel.sp_getBookedSeats_Result)">
+      <Parameter Name="sid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_get_passenger_details" ReturnType="Collection(gladiatorModel.sp_get_passenger_details_Result)">
+      <Parameter Name="passenger_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_generateticketstep1" ReturnType="Collection(gladiatorModel.sp_generateticketstep1_Result)">
+      <Parameter Name="booking_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getBookingHistory" ReturnType="Collection(gladiatorModel.sp_getBookingHistory_Result)">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="status" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getfare" ReturnType="Collection(gladiatorModel.sp_getfare_Result)">
+      <Parameter Name="schedule_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_logincheck_Result">
+    <Property Type="String" Name="username" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_getuser_Result">
+    <Property Type="String" Name="username" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="firstname" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="lastname" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="dob" Nullable="true" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+  </ComplexType>
+  <ComplexType Name="sp_getpassengers_Result">
+    <Property Type="String" Name="name" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="gender" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="age" Nullable="true" />
+    <Property Type="String" Name="profession" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="passenger_id" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_getflights_Result">
+    <Property Type="Int32" Name="flight_id" Nullable="false" />
+    <Property Type="String" Name="source_destination" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="target_destination" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="capacity_business_class" Nullable="true" />
+    <Property Type="Int32" Name="capacity_economy_class" Nullable="true" />
+    <Property Type="Int32" Name="capacity_first_class" Nullable="true" />
+    <Property Type="Int32" Name="capacity_premium_class" Nullable="true" />
+    <Property Type="String" Name="flight_name" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="economy_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="business_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="first_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="premium_class_fare" Nullable="true" Precision="19" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="15" />
+  </ComplexType>
+  <ComplexType Name="sp_getschedules_Result">
+    <Property Type="Int32" Name="flight_id" Nullable="false" />
+    <Property Type="DateTime" Name="travel_date" Nullable="false" />
+    <Property Type="Time" Name="departure_time" Nullable="false" />
+    <Property Type="Time" Name="arrival_time" Nullable="true" />
+    <Property Type="Int32" Name="schedule_id" Nullable="false" />
+    <Property Type="Int32" Name="avail_economy_class" Nullable="true" />
+    <Property Type="Int32" Name="avail_business_class" Nullable="true" />
+    <Property Type="Int32" Name="avail_first_class" Nullable="true" />
+    <Property Type="Int32" Name="avail_premium_class" Nullable="true" />
+    <Property Type="String" Name="schedule_status" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="duration" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="sp_getflightid_Result">
+    <Property Type="Int32" Name="flight_id" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_getflightid_Result1">
+    <Property Type="Int32" Name="flight_id" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_flight_search_Result">
+    <Property Type="Int32" Name="flight_id" Nullable="false" />
+    <Property Type="String" Name="flight_name" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="business_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="economy_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="premium_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="first_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="schedule_id" Nullable="false" />
+    <Property Type="Time" Name="departure_time" Nullable="false" />
+    <Property Type="Time" Name="arrival_time" Nullable="true" />
+    <Property Type="String" Name="duration" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="avail_business_class" Nullable="true" />
+    <Property Type="Int32" Name="avail_economy_class" Nullable="true" />
+    <Property Type="Int32" Name="avail_first_class" Nullable="true" />
+    <Property Type="Int32" Name="avail_premium_class" Nullable="true" />
+  </ComplexType>
+  <Association Name="fk_schedule_id_tickets_table">
+    <End Type="gladiatorModel.tbl_schedules" Role="tbl_schedules" Multiplicity="0..1" />
+    <End Type="gladiatorModel.tbl_tickets" Role="tbl_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_schedules">
+        <PropertyRef Name="schedule_id" />
+      </Principal>
+      <Dependent Role="tbl_tickets">
+        <PropertyRef Name="schedule_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_getBookedSeats_Result">
+    <Property Type="String" Name="seat_no" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="sp_get_passenger_details_Result">
+    <Property Type="String" Name="name" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="gender" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="age" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_generateticketstep1_Result">
+    <Property Type="String" Name="flight_name" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="source_destination" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="target_destination" Nullable="true" MaxLength="20" />
+    <Property Type="Time" Name="arrival_time" Nullable="true" />
+    <Property Type="Time" Name="departure_time" Nullable="false" />
+    <Property Type="Int32" Name="schedule_id" Nullable="false" />
+    <Property Type="Int32" Name="booking_id" Nullable="false" />
+    <Property Type="String" Name="seat_no" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="ticket_id" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="passenger_id" Nullable="true" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="gate" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_getBookingHistory_Result">
+    <Property Type="String" Name="username" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="booking_id" Nullable="false" />
+    <Property Type="Decimal" Name="cost" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="travel_date" Nullable="true" />
+    <Property Type="Int32" Name="gate" Nullable="true" />
+    <Property Type="String" Name="seat_no" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="ticket_id" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="age" Nullable="true" />
+    <Property Type="String" Name="gender" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+    <Property Type="Time" Name="departure_time" Nullable="false" />
+    <Property Type="Time" Name="arrival_time" Nullable="true" />
+    <Property Type="String" Name="duration" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="flight_name" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="source_destination" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="target_destination" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="sp_getfare_Result">
+    <Property Type="Decimal" Name="economy_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="business_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="first_class_fare" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="premium_class_fare" Nullable="true" Precision="19" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="40d2623346d9405d92d2bf5dfe0cbc1b" Name="Diagram1">
+        <EntityTypeShape EntityType="gladiatorModel.tbl_booking" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gladiatorModel.tbl_flights" Width="1.5" PointX="1.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gladiatorModel.tbl_passengers" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="gladiatorModel.tbl_schedules" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gladiatorModel.tbl_tickets" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gladiatorModel.tbl_users" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="gladiatorModel.fk_booking_id" ManuallyRouted="false" />
+        <AssociationConnector Association="gladiatorModel.fk_schedule_id" ManuallyRouted="false" />
+        <AssociationConnector Association="gladiatorModel.fk_username" ManuallyRouted="false" />
+        <AssociationConnector Association="gladiatorModel.fk_flight_id" ManuallyRouted="false" />
+        <AssociationConnector Association="gladiatorModel.fk_passenger_id_ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="gladiatorModel.fk_username_passenger" ManuallyRouted="false" />
+        <AssociationConnector Association="gladiatorModel.fk_schedule_id_tickets_table" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gladiatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_booking">
+    <Key>
+      <PropertyRef Name="booking_id" />
+    </Key>
+    <Property Name="booking_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="20" />
+    <Property Name="cost" Type="money" />
+    <Property Name="schedule_id" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="tbl_flights">
+    <Key>
+      <PropertyRef Name="flight_id" />
+    </Key>
+    <Property Name="flight_id" Type="int" Nullable="false" />
+    <Property Name="source_destination" Type="varchar" MaxLength="20" />
+    <Property Name="target_destination" Type="varchar" MaxLength="20" />
+    <Property Name="capacity_business_class" Type="int" />
+    <Property Name="capacity_economy_class" Type="int" />
+    <Property Name="capacity_first_class" Type="int" />
+    <Property Name="capacity_premium_class" Type="int" />
+    <Property Name="flight_name" Type="varchar" MaxLength="20" />
+    <Property Name="economy_class_fare" Type="money" />
+    <Property Name="business_class_fare" Type="money" />
+    <Property Name="first_class_fare" Type="money" />
+    <Property Name="premium_class_fare" Type="money" />
+    <Property Name="status" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="tbl_passengers">
+    <Key>
+      <PropertyRef Name="passenger_id" />
+    </Key>
+    <Property Name="passenger_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="address" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="15" />
+    <Property Name="gender" Type="varchar" MaxLength="10" />
+    <Property Name="age" Type="int" />
+    <Property Name="profession" Type="varchar" MaxLength="20" />
+    <Property Name="username" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_schedules">
+    <Key>
+      <PropertyRef Name="schedule_id" />
+    </Key>
+    <Property Name="flight_id" Type="int" Nullable="false" />
+    <Property Name="travel_date" Type="date" Nullable="false" />
+    <Property Name="departure_time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="arrival_time" Type="time" Precision="7" />
+    <Property Name="schedule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="avail_economy_class" Type="int" />
+    <Property Name="avail_business_class" Type="int" />
+    <Property Name="avail_first_class" Type="int" />
+    <Property Name="avail_premium_class" Type="int" />
+    <Property Name="schedule_status" Type="varchar" MaxLength="10" />
+    <Property Name="duration" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tbl_tickets">
+    <Key>
+      <PropertyRef Name="ticket_id" />
+    </Key>
+    <Property Name="ticket_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="20" />
+    <Property Name="booking_id" Type="int" />
+    <Property Name="travel_date" Type="date" />
+    <Property Name="passenger_id" Type="int" />
+    <Property Name="gate" Type="int" />
+    <Property Name="seat_no" Type="varchar" MaxLength="10" />
+    <Property Name="schedule_id" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_users">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="title" Type="varchar" MaxLength="5" />
+    <Property Name="firstname" Type="varchar" MaxLength="20" />
+    <Property Name="lastname" Type="varchar" MaxLength="20" />
+    <Property Name="dob" Type="date" />
+    <Property Name="phone" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="fk_booking_id">
+    <End Role="tbl_booking" Type="Self.tbl_booking" Multiplicity="0..1" />
+    <End Role="tbl_tickets" Type="Self.tbl_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_booking">
+        <PropertyRef Name="booking_id" />
+      </Principal>
+      <Dependent Role="tbl_tickets">
+        <PropertyRef Name="booking_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_flight_id">
+    <End Role="tbl_flights" Type="Self.tbl_flights" Multiplicity="1" />
+    <End Role="tbl_schedules" Type="Self.tbl_schedules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_flights">
+        <PropertyRef Name="flight_id" />
+      </Principal>
+      <Dependent Role="tbl_schedules">
+        <PropertyRef Name="flight_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_passenger_id_ticket">
+    <End Role="tbl_passengers" Type="Self.tbl_passengers" Multiplicity="0..1" />
+    <End Role="tbl_tickets" Type="Self.tbl_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_passengers">
+        <PropertyRef Name="passenger_id" />
+      </Principal>
+      <Dependent Role="tbl_tickets">
+        <PropertyRef Name="passenger_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedule_id">
+    <End Role="tbl_schedules" Type="Self.tbl_schedules" Multiplicity="0..1" />
+    <End Role="tbl_booking" Type="Self.tbl_booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_schedules">
+        <PropertyRef Name="schedule_id" />
+      </Principal>
+      <Dependent Role="tbl_booking">
+        <PropertyRef Name="schedule_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedule_id_tickets_table">
+    <End Role="tbl_schedules" Type="Self.tbl_schedules" Multiplicity="0..1" />
+    <End Role="tbl_tickets" Type="Self.tbl_tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_schedules">
+        <PropertyRef Name="schedule_id" />
+      </Principal>
+      <Dependent Role="tbl_tickets">
+        <PropertyRef Name="schedule_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_username">
+    <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="0..1" />
+    <End Role="tbl_booking" Type="Self.tbl_booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="tbl_booking">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_username_passenger">
+    <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="0..1" />
+    <End Role="tbl_passengers" Type="Self.tbl_passengers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="tbl_passengers">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_deletepassenger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="passenger_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_flight_search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="traveldate" Type="date" Mode="In" />
+    <Parameter Name="src_dest" Type="varchar" Mode="In" />
+    <Parameter Name="tar_dest" Type="varchar" Mode="In" />
+    <Parameter Name="traveller" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_generateticketstep1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="booking_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_get_passenger_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="passenger_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_getBookedSeats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_getBookingHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="status" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_getfare" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="schedule_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_getflightid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_getflights" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_getpassengers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_getschedules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_getuser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_logincheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_updateuser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="firstname" Type="varchar" Mode="In" />
+    <Parameter Name="lastname" Type="varchar" Mode="In" />
+    <Parameter Name="dob" Type="date" Mode="In" />
+    <Parameter Name="phone" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="gladiatorModelStoreContainer">
+    <EntitySet Name="tbl_booking" EntityType="Self.tbl_booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_flights" EntityType="Self.tbl_flights" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_passengers" EntityType="Self.tbl_passengers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_schedules" EntityType="Self.tbl_schedules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_tickets" EntityType="Self.tbl_tickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_users" EntityType="Self.tbl_users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_booking_id" Association="Self.fk_booking_id">
+      <End Role="tbl_booking" EntitySet="tbl_booking" />
+      <End Role="tbl_tickets" EntitySet="tbl_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk_flight_id" Association="Self.fk_flight_id">
+      <End Role="tbl_flights" EntitySet="tbl_flights" />
+      <End Role="tbl_schedules" EntitySet="tbl_schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_passenger_id_ticket" Association="Self.fk_passenger_id_ticket">
+      <End Role="tbl_passengers" EntitySet="tbl_passengers" />
+      <End Role="tbl_tickets" EntitySet="tbl_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedule_id" Association="Self.fk_schedule_id">
+      <End Role="tbl_schedules" EntitySet="tbl_schedules" />
+      <End Role="tbl_booking" EntitySet="tbl_booking" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedule_id_tickets_table" Association="Self.fk_schedule_id_tickets_table">
+      <End Role="tbl_schedules" EntitySet="tbl_schedules" />
+      <End Role="tbl_tickets" EntitySet="tbl_tickets" />
+    </AssociationSet>
+    <AssociationSet Name="fk_username" Association="Self.fk_username">
+      <End Role="tbl_users" EntitySet="tbl_users" />
+      <End Role="tbl_booking" EntitySet="tbl_booking" />
+    </AssociationSet>
+    <AssociationSet Name="fk_username_passenger" Association="Self.fk_username_passenger">
+      <End Role="tbl_users" EntitySet="tbl_users" />
+      <End Role="tbl_passengers" EntitySet="tbl_passengers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
